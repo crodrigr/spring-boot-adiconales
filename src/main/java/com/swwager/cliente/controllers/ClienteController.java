@@ -5,8 +5,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.swwager.cliente.repositories.entities.Cliente;
 import com.swwager.cliente.services.ServiceCliente;
-       
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -28,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+@Tag(name = "Invoice API", description = "Este api server tiene toda la funcionalidad de cliente")
 @RestController
 @RequestMapping("/clientes")
 @AllArgsConstructor
@@ -35,6 +39,9 @@ public class ClienteController {
 
     private ServiceCliente serviceCliente;
 
+    @Operation(description = "Retorna todos los cliente", summary ="Return 204 si no hay registros")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200",description = "Exito"),
+    @ApiResponse(responseCode = "500", description = "Internal error")})
     @GetMapping("/")
     public List<Cliente> findAll() {
         return serviceCliente.findAll();

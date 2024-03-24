@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +28,8 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotEmpty(message = "No puede estar vacio")
-    @Column(nullable = false)
+    @Column(nullable = false) 
+      @Schema(name = "nombre", required = true,example = "juan", defaultValue = "juan", description = "Representa el nombre del cliente")   
     private String nombre;
     @NotEmpty(message = "No puede estar vacio")
     @Column(nullable = false)
