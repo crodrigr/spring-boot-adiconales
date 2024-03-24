@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(name = "Cliente", description = "Representa el cliente en el modelo de base datos")
 public class Cliente {
     
     @Id
