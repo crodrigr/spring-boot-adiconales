@@ -36,8 +36,13 @@ public class ClienteController {
     private ServiceCliente serviceCliente;
 
     @GetMapping("/")
-    public List<Cliente> findAll() {
-        return serviceCliente.findAll();
+    public ResponseEntity<List<Cliente>> findAll() {       
+        List<Cliente> findAll = serviceCliente.findAll();
+        if(findAll == null || findAll.isEmpty()){
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.ok(findAll);
+        }
     }
 
     @GetMapping("/{id}")
