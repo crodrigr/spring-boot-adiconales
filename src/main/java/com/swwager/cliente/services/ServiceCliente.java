@@ -10,7 +10,7 @@ public interface ServiceCliente {
 
     List<Cliente> findAll();
 
-    Cliente findById(Long id)throws BussinesRuleException, UnknownHostException;
+    Cliente findById(Long id)throws BussinesRuleException;
 
     Cliente save(Cliente cliente);
 

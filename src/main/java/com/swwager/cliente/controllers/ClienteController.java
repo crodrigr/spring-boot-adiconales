@@ -48,7 +48,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String,Object>> findAllById(@PathVariable Long id)throws BussinesRuleException, UnknownHostException{
+    public ResponseEntity<Map<String,Object>> findAllById(@PathVariable Long id)throws BussinesRuleException{
          Map<String,Object> response=new HashMap<>();
          Cliente cliente=serviceCliente.findById(id);
          response.put("cliente",cliente);

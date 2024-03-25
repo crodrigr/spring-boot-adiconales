@@ -29,7 +29,7 @@ public class ServiceClienteImpl implements ServiceCliente {
 
     @Override
     @Transactional(readOnly = true)
-    public Cliente findById(Long id)throws BussinesRuleException, UnknownHostException {
+    public Cliente findById(Long id)throws BussinesRuleException {
         Optional<Cliente> clienteOptional=repositoryCliente.findById(id);
         if(!clienteOptional.isPresent()){
             BussinesRuleException exception= new BussinesRuleException("1025","Error no existe cliente",HttpStatus.PRECONDITION_FAILED);
