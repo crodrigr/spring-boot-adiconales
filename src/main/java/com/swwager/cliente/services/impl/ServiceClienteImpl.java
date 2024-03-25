@@ -1,11 +1,14 @@
 package com.swwager.cliente.services.impl;
 
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.swwager.cliente.exception.BussinesRuleException;
 import com.swwager.cliente.repositories.RepositoryCliente;
 import com.swwager.cliente.repositories.entities.Cliente;
 import com.swwager.cliente.services.ServiceCliente;
@@ -26,8 +29,13 @@ public class ServiceClienteImpl implements ServiceCliente {
 
     @Override
     @Transactional(readOnly = true)
-    public Cliente findById(Long id) {
-        return repositoryCliente.findById(id).orElse(null);
+    public Cliente findById(Long id)throws BussinesRuleException, UnknownHostException {
+        Optional<Cliente> clienteOptional=repositoryCliente.findById(id);
+        if(!clienteOptional.isPresent()){
+            BussinesRuleException exception= new BussinesRuleException("1025","Error no existe cliente",HttpStatus.PRECONDITION_FAILED);
+            throw exception; 
+        }
+        return clienteOptional.get();
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.swwager.cliente.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.swwager.cliente.exception.BussinesRuleException;
 import com.swwager.cliente.repositories.entities.Cliente;
 import com.swwager.cliente.services.ServiceCliente;
        
@@ -12,6 +13,7 @@ import lombok.AllArgsConstructor;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,22 +48,11 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Map<String,Object>> findAllById(@PathVariable Long id) {
-
+    public ResponseEntity<Map<String,Object>> findAllById(@PathVariable Long id)throws BussinesRuleException, UnknownHostException{
          Map<String,Object> response=new HashMap<>();
-
          Cliente cliente=serviceCliente.findById(id);
-
-         if(cliente!=null){
-            response.put("cliente",cliente);
-            return new ResponseEntity<>(response,HttpStatus.OK);
-         }else{
-            response.put("mensaje",new String("No existe ningún cliente con ese id:"));
-            return new ResponseEntity<>(response,HttpStatus.NO_CONTENT);
-         }
-
-
-
+         response.put("cliente",cliente);
+         return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
     @GetMapping("/byEmail/{email}")
